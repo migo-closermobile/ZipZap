@@ -195,10 +195,11 @@ namespace ZZDataConsumer
 
 	{
 		// if any of the blocks don't set the error, ensure we return an error anyway
+		NSError * __autoreleasing *blockError = error;
 		ZZScopeGuard errorChecker(^
 								  {
-									  if (error && !*error)
-										  *error = [NSError errorWithDomain:ZZErrorDomain
+									  if (blockError && !*blockError)
+										  *blockError = [NSError errorWithDomain:ZZErrorDomain
 																	   code:ZZBlockFailedWithoutError
 																   userInfo:nil];
 								  });
